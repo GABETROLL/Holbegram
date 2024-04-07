@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
 class TextFieldInput extends StatelessWidget {
-  const TextFieldInput({super.key, required this.controller, required this.isPassword, required this.hintText, required this.suffixIcon, required this.keyboardType});
+  const TextFieldInput({super.key, required this.controller, required this.isPassword, required this.hintText, this.suffixIcon, required this.keyboardType});
 
   final TextEditingController controller;
   final bool isPassword;
   final String hintText;
-  final Widget suffixIcon;
+  final Widget? suffixIcon;
   final TextInputType keyboardType;
 
   @override
@@ -29,7 +29,7 @@ class TextFieldInput extends StatelessWidget {
         focusedBorder: invisibleBorder,
         // fillColor: const Color.fromARGB(0xFF, 0x80, 0x80, 0x80),
         filled: true,
-        suffixIcon: suffixIcon,
+        suffixIcon: suffixIcon, // maybe null, but it'll just not show any suffixIcon if it is null.
         contentPadding: const EdgeInsets.all(8),
       ),
       textInputAction: TextInputAction.next,

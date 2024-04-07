@@ -36,22 +36,30 @@ class MyApp extends StatelessWidget {
         appBar: AppBar(
           title: const Text('Holbegram'),
         ),
-        body: Center(
-          child: TextFieldInput(
-            controller: TextEditingController(),
-            isPassword: true,
-            hintText: 'Password',
-            suffixIcon: IconButton(
-              icon: const Icon(
-                Icons.visibility_off,
-                color: Color.fromARGB(218, 226, 37, 24),
-                size: 48.0,
-                semanticLabel: 'hide password visibility',
-              ),
-              onPressed: () {},
+        body: Column(
+          children: <Widget>[
+            TextFieldInput(
+              controller: TextEditingController(),
+              isPassword: false,
+              hintText: 'Email',
+              keyboardType: TextInputType.emailAddress,
             ),
-            keyboardType: TextInputType.visiblePassword,
-          )
+            TextFieldInput(
+              controller: TextEditingController(),
+              isPassword: true,
+              hintText: 'Password',
+              suffixIcon: IconButton(
+                icon: const Icon(
+                  Icons.visibility_off,
+                  color: Color.fromARGB(218, 226, 37, 24),
+                  size: 48.0,
+                  semanticLabel: 'hide password visibility',
+                ),
+                onPressed: () {},
+              ),
+              keyboardType: TextInputType.visiblePassword,
+            ),
+          ],
         ),
       ),
     );
