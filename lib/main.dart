@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'widgets/text_field.dart';
+import 'screens/login_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -32,36 +32,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Holbegram'),
-        ),
-        body: Column(
-          children: <Widget>[
-            TextFieldInput(
-              controller: TextEditingController(),
-              isPassword: false,
-              hintText: 'Email',
-              keyboardType: TextInputType.emailAddress,
-            ),
-            TextFieldInput(
-              controller: TextEditingController(),
-              isPassword: true,
-              hintText: 'Password',
-              suffixIcon: IconButton(
-                icon: const Icon(
-                  Icons.visibility_off,
-                  color: Color.fromARGB(218, 226, 37, 24),
-                  size: 48.0,
-                  semanticLabel: 'hide password visibility',
-                ),
-                onPressed: () {},
-              ),
-              keyboardType: TextInputType.visiblePassword,
-            ),
-          ],
-        ),
-      ),
+      home: LoginScreen(emailController: TextEditingController(), passwordController: TextEditingController()),
     );
   }
 }
