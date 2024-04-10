@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../widgets/text_field.dart';
+import 'login_screen.dart';
 
 class Signup extends StatefulWidget {
   const Signup({super.key});
@@ -113,7 +114,12 @@ class _SignupState extends State<Signup> {
             children: <Widget>[
               const Text('Have an account?'),
               TextButton(
-                onPressed: () {},
+                onPressed: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (BuildContext context) => const LoginScreen(),
+                  ),
+                ),
                 child: const Text(
                   'Log in',
                   style: TextStyle(color: Color.fromARGB(218, 226, 37, 24)),
