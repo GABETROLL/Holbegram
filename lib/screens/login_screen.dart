@@ -2,10 +2,7 @@ import 'package:flutter/material.dart';
 import '../widgets/text_field.dart';
 
 class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key, required this.emailController, required this.passwordController});
-
-  final TextEditingController emailController;
-  final TextEditingController passwordController;
+  const LoginScreen({super.key});
 
   @override
   State<StatefulWidget> createState() => _LoginScreenState();
