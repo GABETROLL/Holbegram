@@ -42,28 +42,75 @@ class _AddPictureState extends State<AddPicture> {
             width: 80,
             height: 60,
           ),
-          const SizedBox(height: 24),
-          Text('Hello, $username Welcome to Holbegram'),
-          const Text('Choose an image from your gallery or take a new one.'),
-          Image.asset('assets/images/Sample_User_Icon.png'),
-          Row(
-            children: <Widget>[
-              IconButton(
-                onPressed: () => setState(() => selectImageFromGallery()),
-                icon: const Icon(Icons.image),
-              ),
-              IconButton(
-                onPressed: () => setState(() => selectImageFromCamera()),
-                icon: const Icon(Icons.camera_alt_outlined),
-              ),
-            ],
-          ),
-          ElevatedButton(
-            style: ButtonStyle(
-              backgroundColor: MaterialStateProperty.all(const Color.fromARGB(218, 226, 37, 24)),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(20, 24, 20, 0),
+            child: Column(
+              children: <Widget>[
+                SizedBox(
+                  width: double.infinity,
+                  child: Text(
+                    'Hello, $username Welcome to Holbegram',
+                    textAlign: TextAlign.start,
+                    style: const TextStyle(
+                      fontSize: 20.0,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                ),
+                const SizedBox(
+                  width: double.infinity,
+                  child: Text(
+                    'Choose an image from your gallery or take a new one.',
+                    textAlign: TextAlign.start,
+                    style: TextStyle(
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                ),
+              ],
             ),
-            onPressed: () { },
-            child: const Text('Next', style: TextStyle(color: Colors.white)),
+          ),
+          const SizedBox(height: 28),
+          SizedBox(
+            width: 200,
+            child: Column(
+              children: <Widget>[
+                Image.asset('assets/images/Sample_User_Icon.png'),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    IconButton(
+                      iconSize: 40,
+                      color: const Color.fromARGB(218, 226, 37, 24),
+                      onPressed: () => setState(() => selectImageFromGallery()),
+                      icon: const Icon(Icons.image_outlined),
+                    ),
+                    IconButton(
+                      iconSize: 40,
+                      color: const Color.fromARGB(218, 226, 37, 24),
+                      onPressed: () => setState(() => selectImageFromCamera()),
+                      icon: const Icon(Icons.camera_alt_outlined),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 24),
+                SizedBox(
+                  height: 40,
+                  child: ElevatedButton(
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all(const Color.fromARGB(218, 226, 37, 24)),
+                    ),
+                    onPressed: () { },
+                    child: const Text(
+                      'Next', style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 38,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
         ],
       ),
