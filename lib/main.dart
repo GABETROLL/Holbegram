@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'screens/signup_screen.dart';
+import 'screens/upload_image_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -32,7 +32,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const Signup(),
+      home: const AddPicture(email: 'gabe@gmail.com', password: 'sjefweupoaiurep', username: 'gabetroll'),
     );
   }
 }
