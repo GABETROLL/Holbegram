@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:bottom_navy_bar/bottom_navy_bar.dart';
+import '../screens/Pages/feed.dart';
 
 class BottomNav extends StatefulWidget {
   const BottomNav({super.key});
@@ -17,13 +18,13 @@ class _BottomNavState extends State<BottomNav> {
     return Scaffold(
       body: PageView(
         controller: pageController,
-        /* children: [
+        children: const <Widget>[
           Feed(),
-          Search(),
+          // Search(),
           // AddImage(),
-          Favorite(),
-          Profile(),
-        ], */
+          // Favorite(),
+          // Profile(),
+        ],
       ),
       bottomNavigationBar: BottomNavyBar(
         selectedIndex: currentIndex,
