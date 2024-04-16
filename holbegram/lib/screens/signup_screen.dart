@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:holbegram/screens/home.dart';
 import '../widgets/text_field.dart';
 import 'login_screen.dart';
+// firebase stuff
+import '../methods/auth_methods.dart';
 
 class Signup extends StatefulWidget {
   const Signup({super.key});
@@ -87,17 +90,38 @@ class _SignupState extends State<Signup> {
                 SizedBox(
                   width: double.infinity,
                   height: 48,
-                  child: ElevatedButton(
-                    onPressed: () { },
-                    style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all(const Color.fromARGB(218, 226, 37, 24)),
-                    ),
-                    child: const Text(
-                      'Sign up',
-                      style: TextStyle(
-                        color: Colors.white,
-                      ),
-                    ),
+                  child: Builder(
+                    builder: (BuildContext context) {
+                      return ElevatedButton(
+                        onPressed: () {
+                          if (passwordController.text == passwordConfirmationController.text) {
+                            AuthMethods.signUpUser(email: emailController.text, password: passwordController.text, username: fullNameController.text)
+                              .then((result) {
+                                if (result == 'success') {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(content: Text('Signed Up!')),
+                                  );
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder:(BuildContext context) => const Home(),
+                                    ),
+                                  );
+                                }
+                              });
+                          }
+                        },
+                        style: ButtonStyle(
+                          backgroundColor: MaterialStateProperty.all(const Color.fromARGB(218, 226, 37, 24)),
+                        ),
+                        child: const Text(
+                          'Sign up',
+                          style: TextStyle(
+                            color: Colors.white,
+                          ),
+                        ),
+                      );
+                    },
                   ),
                 ),
                 const SizedBox(height: 24),

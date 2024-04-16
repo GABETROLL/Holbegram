@@ -93,9 +93,7 @@ class _LoginScreenState extends State<StatefulWidget> {
                               .then((result) {
                                 if (result == 'success') {
                                   ScaffoldMessenger.of(context).showSnackBar(
-                                    const SnackBar(
-                                      content: Text('Log In'),
-                                    ),
+                                    const SnackBar(content: Text('Log In')),
                                   );
                                   Navigator.push(
                                     context,
