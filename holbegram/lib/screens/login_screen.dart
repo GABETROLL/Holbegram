@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import '../widgets/text_field.dart';
 import 'signup_screen.dart';
+import 'home.dart';
+// firebase stuff
+import  '../methods/auth_methods.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -12,7 +15,20 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<StatefulWidget> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-  bool passwordVisible = false;
+  bool _passwordVisible = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _passwordVisible = false;
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    emailController.dispose();
+    passwordController.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -48,33 +64,54 @@ class _LoginScreenState extends State<StatefulWidget> {
                   const SizedBox(height: 24),
                   TextFieldInput(
                     controller: passwordController,
-                    isPassword: !passwordVisible,
+                    isPassword: !_passwordVisible,
                     hintText: 'Password',
                     keyboardType: TextInputType.visiblePassword,
                     suffixIcon: IconButton(
                       alignment: Alignment.bottomLeft,
                       color: const Color.fromARGB(218, 226, 37, 24),
                       icon: Icon(
-                        passwordVisible ? Icons.visibility : Icons.visibility_off,
+                        _passwordVisible ? Icons.visibility : Icons.visibility_off,
                       ),
-                      onPressed: () => setState(() { passwordVisible = !passwordVisible; }),
+                      onPressed: () => setState(() { _passwordVisible = !_passwordVisible; }),
                     ),
                   ),
                   const SizedBox(height: 28),
                   SizedBox(
                     width: double.infinity,
                     height: 48,
-                    child: ElevatedButton(
-                      style: ButtonStyle(
-                        backgroundColor: MaterialStateProperty.all(
-                          const Color.fromARGB(218, 226, 37, 24),
-                        ),
-                      ),
-                      onPressed: () { },
-                      child: const Text(
-                        'Log in',
-                        style: TextStyle(color: Colors.white),
-                      ),
+                    child: Builder(
+                      builder: (BuildContext context) {
+                        return ElevatedButton(
+                          style: ButtonStyle(
+                            backgroundColor: MaterialStateProperty.all(
+                              const Color.fromARGB(218, 226, 37, 24),
+                            ),
+                          ),
+                          onPressed: () {
+                            AuthMethods.login(email: emailController.text, password: passwordController.text)
+                              .then((result) {
+                                if (result == 'success') {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(
+                                      content: Text('Log In'),
+                                    ),
+                                  );
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (BuildContext context) => const Home(),
+                                    ),
+                                  );
+                                }
+                              });
+                          },
+                          child: const Text(
+                            'Log in',
+                            style: TextStyle(color: Colors.white),
+                          ),
+                        );
+                      },
                     ),
                   ),
                   const SizedBox(height: 24),

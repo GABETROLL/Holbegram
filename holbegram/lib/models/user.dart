@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class Users {
   const Users({
     required this.uid,
@@ -23,6 +25,23 @@ class Users {
   final List<dynamic> saved;
   final String searchKey;
 
+  static Users fromSnap(DocumentSnapshot<Map<String, dynamic>> snap) {
+    final Map<String, dynamic>? snapshot = snap.data();
+
+    return Users(
+      uid: snapshot?['uid'],
+      email: snapshot?['email'],
+      username: snapshot?['username'],
+      bio: snapshot?['bio'],
+      photoUrl: snapshot?['photoUrl'],
+      followers: snapshot?['followers'],
+      following: snapshot?['following'],
+      posts: snapshot?['posts'],
+      saved: snapshot?['saved'],
+      searchKey: snapshot?['searchKey'],
+    );
+  }
+
   Map<String, dynamic> toJson() => {
     'uid': uid,
     'email': email,
@@ -35,6 +54,4 @@ class Users {
     'saved': saved,
     'searchKey': searchKey,
   };
-
-  // static Users fromSnap(DocumentSnapshot snap);
 }
