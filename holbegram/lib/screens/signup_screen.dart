@@ -97,6 +97,8 @@ class _SignupState extends State<Signup> {
                           if (passwordController.text == passwordConfirmationController.text) {
                             AuthMethods.signUpUser(email: emailController.text, password: passwordController.text, username: fullNameController.text)
                               .then((result) {
+                                print('result: $result');
+
                                 if (result == 'success') {
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     const SnackBar(content: Text('Signed Up!')),

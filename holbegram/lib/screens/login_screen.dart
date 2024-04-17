@@ -91,6 +91,8 @@ class _LoginScreenState extends State<StatefulWidget> {
                           onPressed: () {
                             AuthMethods.login(email: emailController.text, password: passwordController.text)
                               .then((result) {
+                                print('result: $result');
+
                                 if (result == 'success') {
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     const SnackBar(content: Text('Log In')),

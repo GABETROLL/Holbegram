@@ -18,8 +18,7 @@ class AuthMethods {
     } on FirebaseAuthException catch (error) {
       return error.code;
     } catch (error) {
-      print('ERROR CAUGHT: $error');
-      return 'unexpected failure';
+      return 'unexpected error: $error';
     }
   }
 
@@ -28,38 +27,40 @@ class AuthMethods {
       return 'Please fill all the fields';
     }
 
+    final Users userModel;
+
     try {
       final UserCredential userCredential = await _auth.createUserWithEmailAndPassword(email: email, password: password);
       final User? user = userCredential.user;
 
       if (user == null || user.email == null) {
-        return 'failed to sign up the user';
+        return 'No userCredential.user or userCredential.user.email recieved from the sign-up server reply';
       }
 
-      final Users userModel = Users(
-          uid: user.uid,
-          email: user.email!,
-          username: username,
-          bio: '',
-          photoUrl: '',
-          followers: [],
-          following: [],
-          posts: [],
-          saved: [],
-          searchKey: '',
-        );
-
-      try {
-        await _firestore.collection('users').doc(userModel.uid).set(userModel.toJson());
-      } catch (error) {
-        return 'Error adding new user to Cloud Firestore: $error';
-      }
-      return 'success';
+      userModel = Users(
+        uid: user.uid,
+        email: user.email!,
+        username: username,
+        bio: '',
+        photoUrl: '',
+        followers: [],
+        following: [],
+        posts: [],
+        saved: [],
+        searchKey: '',
+      );
     } on FirebaseAuthException catch (error) {
       return error.code;
     } catch (error) {
-      print('ERROR CAUGHT: $error');
-      return 'unexpected failure';
+      return 'unexpected error: $error';
     }
+
+    try {
+      await _firestore.collection('users').doc(userModel.uid).set(userModel.toJson());
+    } catch (error) {
+      return 'Error adding new user object to Cloud Firestore: $error';
+    }
+
+    return 'success';
   }
 }
