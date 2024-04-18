@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:holbegram/screens/home.dart';
 import '../../widgets/text_field.dart';
 import 'login_screen.dart';
+import 'package:holbegram/screens/auth/upload_image_screen.dart';
 // firebase stuff
 import '../../methods/auth_methods.dart';
 
@@ -94,8 +94,13 @@ class _SignupState extends State<Signup> {
                     builder: (BuildContext context) {
                       return ElevatedButton(
                         onPressed: () {
-                          if (passwordController.text == passwordConfirmationController.text) {
-                            AuthMethods.signUpUser(email: emailController.text, password: passwordController.text, username: fullNameController.text)
+                          String email = emailController.text;
+                          String username = fullNameController.text;
+                          String password = passwordController.text;
+                          String passwordConfirmation = passwordConfirmationController.text;
+
+                          if (password == passwordConfirmation) {
+                            AuthMethods.signUpUser(email: email, password: password, username: username)
                               .then((result) {
                                 print('result: $result');
 
@@ -106,7 +111,7 @@ class _SignupState extends State<Signup> {
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                      builder:(BuildContext context) => const Home(),
+                                      builder:(BuildContext context) => AddPicture(email: email, password: password, username: username),
                                     ),
                                   );
                                 }

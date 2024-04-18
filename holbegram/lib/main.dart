@@ -1,7 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 import 'package:flutter/material.dart';
-import 'screens/auth/upload_image_screen.dart';
+import 'screens/auth/signup_screen.dart';
 
 Future<void> main() async {
   runApp(const MyApp());
@@ -38,7 +38,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const AddPicture(email: 'fakeeemail@gmail.com', password: 'Very\$ecureP4ss', username: 'Gabriel Fernandez'),
+      home: const Signup(),
     );
   }
 }
