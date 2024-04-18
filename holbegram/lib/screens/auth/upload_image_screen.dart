@@ -122,7 +122,9 @@ class _AddPictureState extends State<AddPicture> {
                     style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.all(const Color.fromARGB(218, 226, 37, 24)),
                     ),
-                    onPressed: () { },
+                    onPressed: () {
+                      /* TODO: UPLOAD USER IMAGE TO DB HERE!!! */
+                    },
                     child: const Text(
                       'Next', style: TextStyle(
                         color: Colors.white,
