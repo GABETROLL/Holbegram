@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:holbegram/screens/home.dart';
-import '../widgets/text_field.dart';
+import '../../widgets/text_field.dart';
 import 'login_screen.dart';
 // firebase stuff
-import '../methods/auth_methods.dart';
+import '../../methods/auth_methods.dart';
 
 class Signup extends StatefulWidget {
   const Signup({super.key});

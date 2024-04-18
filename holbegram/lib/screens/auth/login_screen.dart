@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import '../widgets/text_field.dart';
+import '../../widgets/text_field.dart';
 import 'signup_screen.dart';
-import 'home.dart';
+import '../home.dart';
 // firebase stuff
-import  '../methods/auth_methods.dart';
+import  '../../methods/auth_methods.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
