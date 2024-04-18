@@ -11,16 +11,10 @@ class AddPicture extends StatefulWidget {
   final String username;
 
   @override
-  State<AddPicture> createState() => _AddPictureState(email: email, password: password, username: username);
+  State<AddPicture> createState() => _AddPictureState();
 }
 
 class _AddPictureState extends State<AddPicture> {
-  _AddPictureState({required this.email, required this.password, required this.username});
-
-  final String email;
-  final String password;
-  final String username;
-
   Uint8List? _image;
 
   // these should set `image`.
@@ -73,7 +67,7 @@ class _AddPictureState extends State<AddPicture> {
                 SizedBox(
                   width: double.infinity,
                   child: Text(
-                    'Hello, $username Welcome to Holbegram',
+                    'Hello, ${widget.username} Welcome to Holbegram',
                     textAlign: TextAlign.start,
                     style: const TextStyle(
                       fontSize: 20.0,
