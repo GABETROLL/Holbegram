@@ -21,19 +21,32 @@ class _AddPictureState extends State<AddPicture> {
   final String password;
   final String username;
 
-  Uint8List? image = Uint8List(256 * 256);
+  Uint8List? _image;
 
   // these should set `image`.
-  void selectImageFromGallery() async {
+  Future<void> selectImage(ImageSource imageSource) async {
+    // print('Selecting image from $imageSource...');
     ImagePicker imagePicker = ImagePicker();
-    XFile? galleryImage = await imagePicker.pickImage(source: ImageSource.gallery);
-    // ...
+    XFile? image = await imagePicker.pickImage(source: imageSource);
+    // print('Selected image: $image');
+    if (image != null) {
+      // print('image name: ${image.name}; image path: ${image.path}');
+      Uint8List imageBytes = await image.readAsBytes();
+      // print('image bytes: $imageBytes');
+      setState(() {
+        // print('_image: $_image');
+        _image = imageBytes;
+        // print('_image: $_image');
+      });
+    }
   }
 
-  void selectImageFromCamera() async {
-    ImagePicker imagePicker = ImagePicker();
-    XFile? cameraImage = await imagePicker.pickImage(source: ImageSource.camera);
-    // ...
+  void selectImageFromGallery() {
+    selectImage(ImageSource.gallery);
+  }
+
+  void selectImageFromCamera() {
+    selectImage(ImageSource.camera);
   }
 
   @override
@@ -86,20 +99,24 @@ class _AddPictureState extends State<AddPicture> {
             width: 200,
             child: Column(
               children: <Widget>[
-                Image.asset('assets/images/Sample_User_Icon.png'),
+                (
+                  _image == null
+                  ? Image.asset('assets/images/Sample_User_Icon.png')
+                  : Image.memory(_image!)
+                ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
                     IconButton(
                       iconSize: 40,
                       color: const Color.fromARGB(218, 226, 37, 24),
-                      onPressed: () => setState(() => selectImageFromGallery()),
+                      onPressed: selectImageFromGallery,
                       icon: const Icon(Icons.image_outlined),
                     ),
                     IconButton(
                       iconSize: 40,
                       color: const Color.fromARGB(218, 226, 37, 24),
-                      onPressed: () => setState(() => selectImageFromCamera()),
+                      onPressed: selectImageFromCamera,
                       icon: const Icon(Icons.camera_alt_outlined),
                     ),
                   ],
