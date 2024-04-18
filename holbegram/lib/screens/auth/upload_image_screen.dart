@@ -1,5 +1,7 @@
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
+import 'methods/user_storage.dart';
 
 class AddPicture extends StatefulWidget {
   const AddPicture({super.key, required this.email, required this.password, required this.username});
@@ -22,8 +24,17 @@ class _AddPictureState extends State<AddPicture> {
   Uint8List? image = Uint8List(256 * 256);
 
   // these should set `image`.
-  void selectImageFromGallery() { }
-  void selectImageFromCamera() { }
+  void selectImageFromGallery() async {
+    ImagePicker imagePicker = ImagePicker();
+    XFile? galleryImage = await imagePicker.pickImage(source: ImageSource.gallery);
+    // ...
+  }
+
+  void selectImageFromCamera() async {
+    ImagePicker imagePicker = ImagePicker();
+    XFile? cameraImage = await imagePicker.pickImage(source: ImageSource.camera);
+    // ...
+  }
 
   @override
   Widget build(BuildContext context) {
