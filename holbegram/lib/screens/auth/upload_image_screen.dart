@@ -1,7 +1,7 @@
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'methods/user_storage.dart';
+import 'package:holbegram/methods/auth_methods.dart';
 
 class AddPicture extends StatefulWidget {
   const AddPicture({super.key, required this.email, required this.password, required this.username});
@@ -15,6 +15,7 @@ class AddPicture extends StatefulWidget {
 }
 
 class _AddPictureState extends State<AddPicture> {
+  // future user's profile image
   Uint8List? _image;
 
   // these should set `image`.
@@ -43,6 +44,15 @@ class _AddPictureState extends State<AddPicture> {
     selectImage(ImageSource.camera);
   }
 
+  /// By this point, the user shouldn't have had their account created yet,
+  /// because this screen selects their profile picture.
+  /// Then, the "Next" button calls `AuthMethods().signUpUser`
+  /// with the user's information from the previous page
+  /// (`email`, `password`, `username`)
+  /// and the selected image `_image`.
+  ///
+  /// If there's no selected `_image`, the default at
+  /// `assets/images/Sample_User_Icon.png` will be used.
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -118,19 +128,36 @@ class _AddPictureState extends State<AddPicture> {
                 const SizedBox(height: 24),
                 SizedBox(
                   height: 40,
-                  child: ElevatedButton(
-                    style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all(const Color.fromARGB(218, 226, 37, 24)),
-                    ),
-                    onPressed: () {
-                      /* TODO: UPLOAD USER IMAGE TO DB HERE!!! */
+                  child: Builder(
+                    builder: (BuildContext context) {
+                      return ElevatedButton(
+                        style: ButtonStyle(
+                          backgroundColor: MaterialStateProperty.all(const Color.fromARGB(218, 226, 37, 24)),
+                        ),
+                        onPressed: () {
+                          // Sign up the user with `email`, `password`, `username`,
+                          // and `_image` as the user's profile image
+                          AuthMethods().signUpUser(
+                            email: widget.email,
+                            password: widget.password,
+                            username: widget.username,
+                            file: _image,
+                          ).then((result) {
+                            if (result == 'success') {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(content: Text('Success!')),
+                              );
+                            }
+                          });
+                        },
+                        child: const Text(
+                          'Next', style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 38,
+                          ),
+                        ),
+                      );
                     },
-                    child: const Text(
-                      'Next', style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 38,
-                      ),
-                    ),
                   ),
                 ),
               ],

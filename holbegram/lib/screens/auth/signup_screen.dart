@@ -100,22 +100,12 @@ class _SignupState extends State<Signup> {
                           String passwordConfirmation = passwordConfirmationController.text;
 
                           if (password == passwordConfirmation) {
-                            AuthMethods.signUpUser(email: email, password: password, username: username)
-                              .then((result) {
-                                print('result: $result');
-
-                                if (result == 'success') {
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    const SnackBar(content: Text('Signed Up!')),
-                                  );
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder:(BuildContext context) => AddPicture(email: email, password: password, username: username),
-                                    ),
-                                  );
-                                }
-                              });
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder:(BuildContext context) => AddPicture(email: email, password: password, username: username),
+                              ),
+                            );
                           }
                         },
                         style: ButtonStyle(

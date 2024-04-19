@@ -89,7 +89,7 @@ class _LoginScreenState extends State<StatefulWidget> {
                             ),
                           ),
                           onPressed: () {
-                            AuthMethods.login(email: emailController.text, password: passwordController.text)
+                            AuthMethods().login(email: emailController.text, password: passwordController.text)
                               .then((result) {
                                 print('result: $result');
 
