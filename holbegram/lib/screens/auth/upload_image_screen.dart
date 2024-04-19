@@ -143,6 +143,8 @@ class _AddPictureState extends State<AddPicture> {
                             username: widget.username,
                             file: _image,
                           ).then((result) {
+                            print('Sign up result: $result');
+
                             if (result == 'success') {
                               ScaffoldMessenger.of(context).showSnackBar(
                                 const SnackBar(content: Text('Success!')),
