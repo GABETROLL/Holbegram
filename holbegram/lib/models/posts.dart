@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class Post {
   Post({
     required this.caption,
@@ -19,7 +21,21 @@ class Post {
   String postUrl;
   String profImage;
 
-  // static Post fromJson(DocumentSnapshot snap);
+  /// Assumes that `snap.data()` can't be null!
+  static Post fromSnap(DocumentSnapshot<Map<String, dynamic>> snap) {
+    final Map<String, dynamic>? data = snap.data();
+
+    return Post(
+      caption: data?['caption'],
+      uid: data?['uid'],
+      username: data?['username'],
+      likes: data?['likes'],
+      postId: data?['postId'],
+      datePublished: data?['datePublished'],
+      postUrl: data?['postUrl'],
+      profImage: data?['profImage'],
+    );
+  }
 
   Map<String, dynamic> toJson() => {
     'caption': caption,

@@ -25,6 +25,7 @@ class Users {
   final List<dynamic> saved;
   final String searchKey;
 
+  /// Assumes that `snap.data()` can't be null!
   static Users fromSnap(DocumentSnapshot<Map<String, dynamic>> snap) {
     final Map<String, dynamic>? snapshot = snap.data();
 
