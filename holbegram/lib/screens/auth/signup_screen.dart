@@ -3,7 +3,6 @@ import '../../widgets/text_field.dart';
 import 'login_screen.dart';
 import 'package:holbegram/screens/auth/upload_image_screen.dart';
 // firebase stuff
-import '../../methods/auth_methods.dart';
 
 class Signup extends StatefulWidget {
   const Signup({super.key});
