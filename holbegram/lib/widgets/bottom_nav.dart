@@ -64,7 +64,7 @@ class _BottomNavState extends State<BottomNav> {
             inactiveColor: Colors.black,
           ),
           BottomNavyBarItem(
-            icon: const Icon(Icons.heart_broken),
+            icon: const Icon(Icons.favorite_outline),
             title: const Text(
               'Favorite',
               style: TextStyle(fontSize: 25, fontFamily: 'Billabong'),
