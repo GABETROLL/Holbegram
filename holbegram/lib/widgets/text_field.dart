@@ -1,7 +1,14 @@
 import 'package:flutter/material.dart';
 
 class TextFieldInput extends StatelessWidget {
-  const TextFieldInput({super.key, required this.controller, required this.isPassword, required this.hintText, this.suffixIcon, required this.keyboardType});
+  const TextFieldInput({
+    super.key,
+    required this.controller,
+    required this.isPassword,
+    required this.hintText,
+    this.suffixIcon,
+    required this.keyboardType,
+  });
 
   final TextEditingController controller;
   final bool isPassword;
