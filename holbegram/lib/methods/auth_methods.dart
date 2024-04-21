@@ -46,9 +46,9 @@ class AuthMethods {
 
       String profilePictureUrl = '';
 
-      /* if (file != null) {
-        final String profilePictureUrl = StorageMethods().uploadImageToStorage(false, ?, file);
-      } */
+      if (file != null) {
+        profilePictureUrl = await StorageMethods().uploadImageToStorage(false, StorageMethods.childName, file);
+      }
 
       // Constructing user's model to have the user's profile picture URL,
       // FirebaseAuth uid and email, and blank other info,
@@ -86,11 +86,10 @@ class AuthMethods {
     if (user != null) {
       DocumentSnapshot<Map<String, dynamic>> userModel = await _firestore.collection('users').doc(user.uid).get();
 
-      if (userModel.data() == null) {
-        return null;
+      if (userModel.data() != null) {
+        return Users.fromSnap(userModel);
       }
-
-      return Users.fromSnap(userModel);
     }
+    return null;
   }
 }
