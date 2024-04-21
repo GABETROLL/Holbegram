@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:holbegram/utils/posts.dart';
 
 class Feed extends StatelessWidget {
   const Feed({super.key});
@@ -19,8 +20,9 @@ class Feed extends StatelessWidget {
             onPressed: () { },
           ),
         ],
+        foregroundColor: Colors.black,
       ),
-      // body: Posts(),
+      body: const Posts(),
     );
   }
 }

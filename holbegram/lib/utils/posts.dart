@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:holbegram/models/posts.dart';
 import 'package:holbegram/providers/user_provider.dart';
 
 class Posts extends StatefulWidget {
@@ -24,21 +25,93 @@ class _PostsState extends State<Posts> {
         if (snapshot.hasData) {
           List<QueryDocumentSnapshot<Map<String, dynamic>>> data = snapshot.data!.docs;
 
+          // LISTVIEW OF POSTS
           return ListView.builder(
             itemCount: data.length,
             itemBuilder: (BuildContext context, int index) {
               final QueryDocumentSnapshot<Map<String, dynamic>> document = data[index];
-              final Map<String, dynamic> documentData = document.data();
+              final Post postModel = Post.fromSnap(document);
 
+              // POST (header, caption image)
               return SingleChildScrollView(
                 child: Container(
-                  /* USE `documentData` HERE */
+                  margin: EdgeInsetsGeometry.lerp(const EdgeInsets.all(8), const EdgeInsets.all(8), 10),
+                  height: 540,
+                  decoration: BoxDecoration(
+                    color: const Color.fromARGB(255, 255, 255, 255),
+                    borderRadius: BorderRadius.circular(25),
+                  ),
+                  // HEADER, CAPTION, IMAGE, LIKES
+                  child: Column(
+                    children: <Widget>[
+                      // POST HEADER: (profImage, username and ...)
+                      Builder(
+                        builder: (BuildContext context) {
+                          return Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: <Widget>[
+                              // PROFIMAGE
+                              Image.network(postModel.profImage),
+                              // CAPTION
+                              Text(postModel.username),
+                              const Spacer(),
+                              // ...
+                              IconButton(
+                                onPressed: () {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(content: Text('Post Deleted')),
+                                  );
+                                },
+                                icon: const Icon(Icons.more_horiz),
+                              )
+                            ],
+                          );
+                        }
+                      ),
+                      // CAPTION
+                      Text(postModel.caption),
+                      // IMAGE
+                      Container(
+                        width: 350,
+                        height: 350,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(25),
+                        ),
+                        child: Image.network(postModel.postUrl),
+                        // fit: cover (how?)
+                      ),
+                      Row(
+                        children: <Widget>[
+                          IconButton(
+                            onPressed: () { },
+                            icon: const Icon(Icons.favorite_outline),
+                          ),
+                          IconButton(
+                            onPressed: ( ) { },
+                            icon: const Icon(Icons.messenger_outline),
+                          ),
+                          IconButton(
+                            onPressed: ( ) { },
+                            icon: const Icon(Icons.send),
+                          ),
+                          const Spacer(),
+                          IconButton(
+                            onPressed: ( ) { },
+                            icon: const Icon(Icons.bookmark_outline),
+                          ),
+                        ],
+                      ),
+                      // LIKES
+                      Text('${postModel.likes.length} Liked'),
+                    ],
+                  ),
                 ),
               );
             },
           );
         }
 
+        return const Center(child: Text('Fetching posts data...'));
       }
     );
   }
