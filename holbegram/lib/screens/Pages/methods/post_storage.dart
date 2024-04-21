@@ -17,7 +17,7 @@ class PostStorage {
     final String imageUrl;
 
     try {
-      imageUrl = await StorageMethods().uploadImageToStorage(true, 'images', image);
+      imageUrl = await StorageMethods().uploadImageToStorage(true, StorageMethods.childName, image);
     } catch (error) {
       return error.toString();
     }
