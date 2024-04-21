@@ -4,13 +4,12 @@ import 'package:holbegram/models/user.dart';
 
 class UserProvider with ChangeNotifier {
   Users? _user;
-  AuthMethods _authMethods = AuthMethods();
+  final AuthMethods _authMethods = AuthMethods();
 
-  Future<Users?> get user async {
-    return _user;
-  }
+  Users? get user => _user;
 
   Future<void> refreshUser() async {
-    
+    _user = await _authMethods.getUserDetails();
+    notifyListeners();
   }
 }
