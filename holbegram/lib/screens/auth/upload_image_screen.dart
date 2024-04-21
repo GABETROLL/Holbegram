@@ -1,5 +1,6 @@
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
+import 'package:holbegram/screens/home.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:holbegram/methods/auth_methods.dart';
 
@@ -149,11 +150,21 @@ class _AddPictureState extends State<AddPicture> {
                               ScaffoldMessenger.of(context).showSnackBar(
                                 const SnackBar(content: Text('Success!')),
                               );
+
+                              /*
+                              // TODO: FIGURE OUT HOW TO SWITCH THE SCREENS INSTEAD OF PUSHING
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (BuildContext context) => const Home()
+                                ),
+                              ); */
                             }
                           });
                         },
                         child: const Text(
-                          'Next', style: TextStyle(
+                          'Next',
+                          style: TextStyle(
                             color: Colors.white,
                             fontSize: 38,
                           ),
