@@ -1,7 +1,9 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:holbegram/models/posts.dart';
+// firebase stuff
 import 'package:holbegram/providers/user_provider.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:holbegram/models/posts.dart';
+import 'package:holbegram/screens/Pages/methods/post_storage.dart';
 
 class Posts extends StatefulWidget {
   const Posts({super.key});
@@ -44,7 +46,7 @@ class _PostsState extends State<Posts> {
                   // HEADER, CAPTION, IMAGE, LIKES
                   child: Column(
                     children: <Widget>[
-                      // POST HEADER: (profImage, username and ...)
+                      // POST HEADER: (profImage, username and "..." delete button)
                       Builder(
                         builder: (BuildContext context) {
                           return Row(
@@ -55,9 +57,11 @@ class _PostsState extends State<Posts> {
                               // CAPTION
                               Text(postModel.username),
                               const Spacer(),
-                              // ...
+                              // ... (DELETE POST BUTTON)
                               IconButton(
                                 onPressed: () {
+                                  PostStorage().deletePost(postModel.postId);
+
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     const SnackBar(content: Text('Post Deleted')),
                                   );
