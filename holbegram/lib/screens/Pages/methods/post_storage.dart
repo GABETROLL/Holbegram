@@ -47,6 +47,27 @@ class PostStorage {
     return 'Ok';
   }
 
+  Future<Post?> getPostById(String postId) async {
+    try {
+      final DocumentSnapshot<Map<String, dynamic>> documentSnapshot = await _firestore.collection('posts').doc(postId).get();
+      return Post.fromSnap(documentSnapshot);
+    } catch (error) {
+      return null;
+    }
+  }
+
+  Future<List<Post>> searchPosts(String caption) async {
+    final Query<Map<String, dynamic>> query = _firestore.collection('posts').where('caption', isEqualTo: caption);
+    final QuerySnapshot<Map<String, dynamic>> result = await query.get();
+    final List<QueryDocumentSnapshot<Map<String, dynamic>>> documentSnapshots = result.docs;
+    final List<Post> posts = List.from(
+      documentSnapshots.map(
+        (QueryDocumentSnapshot<Map<String, dynamic>> documentSnapshot) => Post.fromSnap(documentSnapshot)
+      )
+    );
+    return posts;
+  }
+
   Future<void> deletePost(String postId) async {
     try {
       await _firestore.collection('posts').doc(postId).delete();
