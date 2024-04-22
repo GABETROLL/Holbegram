@@ -4,6 +4,7 @@ class TextFieldInput extends StatelessWidget {
   const TextFieldInput({
     super.key,
     required this.controller,
+    this.onSubmitted,
     required this.isPassword,
     required this.hintText,
     required this.keyboardType,
@@ -13,6 +14,7 @@ class TextFieldInput extends StatelessWidget {
   });
 
   final TextEditingController controller;
+  final void Function(String)? onSubmitted;
   final bool isPassword;
   final String hintText;
   final TextInputType keyboardType;
@@ -32,6 +34,7 @@ class TextFieldInput extends StatelessWidget {
     return TextField(
       keyboardType: keyboardType,
       controller: controller,
+      onSubmitted: onSubmitted,
       cursorColor: const Color.fromARGB(218, 226, 37, 24),
       decoration: InputDecoration(
         hintText: hintText,
