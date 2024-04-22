@@ -25,14 +25,24 @@ class _PostsState extends State<Posts> {
         }
 
         if (snapshot.hasData) {
-          List<QueryDocumentSnapshot<Map<String, dynamic>>> data = snapshot.data!.docs;
+          List<QueryDocumentSnapshot<Map<String, dynamic>>> documentSnapshots = snapshot.data!.docs;
 
           // LISTVIEW OF POSTS
           return ListView.builder(
-            itemCount: data.length,
+            itemCount: documentSnapshots.length,
             itemBuilder: (BuildContext context, int index) {
-              final QueryDocumentSnapshot<Map<String, dynamic>> document = data[index];
-              final Post postModel = Post.fromSnap(document);
+              final QueryDocumentSnapshot<Map<String, dynamic>> documentSnapshot;
+              final Post postModel;
+
+              try {
+                documentSnapshot = documentSnapshots[index];
+                postModel = Post.fromSnap(documentSnapshot);
+              } catch (error) {
+                // the index may be out of range of the `documentSnapshots`,
+                // or the `documentSnapshot` could have missing data,
+                // data with missing fields, or fields with the wrong types.
+                return Text('Unexpected error occured: $error');
+              }
 
               // POST (header, caption image)
               return SingleChildScrollView(
