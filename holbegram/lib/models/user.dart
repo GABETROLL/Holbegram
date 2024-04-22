@@ -25,21 +25,25 @@ class Users {
   final List<dynamic> saved;
   final String searchKey;
 
-  /// Assumes that `snap.data()` can't be null!
+  /// Assuming that `snap.data()` is a JSON representation of a `Users`
+  /// (Map<String field_key, dynamic field_value>),
+  /// this method returns the `Users` representation of `snap.data()`.
+  ///
+  /// Throws if `snap.data()` is null, or if its fields are missing, null or the incorrect type.
   static Users fromSnap(DocumentSnapshot<Map<String, dynamic>> snap) {
-    final Map<String, dynamic>? snapshot = snap.data();
+    final Map<String, dynamic> snapshot = snap.data()!;
 
     return Users(
-      uid: snapshot?['uid'],
-      email: snapshot?['email'],
-      username: snapshot?['username'],
-      bio: snapshot?['bio'],
-      photoUrl: snapshot?['photoUrl'],
-      followers: snapshot?['followers'],
-      following: snapshot?['following'],
-      posts: snapshot?['posts'],
-      saved: snapshot?['saved'],
-      searchKey: snapshot?['searchKey'],
+      uid: snapshot['uid'],
+      email: snapshot['email'],
+      username: snapshot['username'],
+      bio: snapshot['bio'],
+      photoUrl: snapshot['photoUrl'],
+      followers: snapshot['followers'],
+      following: snapshot['following'],
+      posts: snapshot['posts'],
+      saved: snapshot['saved'],
+      searchKey: snapshot['searchKey'],
     );
   }
 

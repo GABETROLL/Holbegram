@@ -83,13 +83,13 @@ class AuthMethods {
   Future<Users?> getUserDetails() async {
     User? user = _auth.currentUser;
 
-    if (user != null) {
-      DocumentSnapshot<Map<String, dynamic>> userModel = await _firestore.collection('users').doc(user.uid).get();
+    if (user == null) return null;
 
-      if (userModel.data() != null) {
-        return Users.fromSnap(userModel);
-      }
+    try {
+      DocumentSnapshot<Map<String, dynamic>> userModel = await _firestore.collection('users').doc(user.uid).get();
+      return Users.fromSnap(userModel);
+    } catch (error) {
+      return null;
     }
-    return null;
   }
 }

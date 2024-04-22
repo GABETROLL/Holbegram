@@ -25,7 +25,7 @@ class Post {
   /// (Map<String field_key, dynamic field_value>),
   /// this method returns the `Post` representation of `snap.data()`.
   ///
-  /// Throws if `snap.data()` is null, and if its fields are missing, null or the incorrect type.
+  /// Throws if `snap.data()` is null, or if its fields are missing, null or the incorrect type.
   static Post fromSnap(DocumentSnapshot<Map<String, dynamic>> snap) {
     final Map<String, dynamic> data = snap.data()!;
 
