@@ -22,6 +22,8 @@ class Post {
   String profImage;
 
   /// Assumes that `snap.data()` can't be null!
+  /// TODO: MAKE THIS CHECK IF THE `datePublished` KEY
+  /// IS A `TimeStamp` INSTEAD OF A `DateTime`, AND CONVERT IT.
   static Post fromSnap(DocumentSnapshot<Map<String, dynamic>> snap) {
     final Map<String, dynamic>? data = snap.data();
 
