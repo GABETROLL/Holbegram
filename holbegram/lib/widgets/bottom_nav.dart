@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:bottom_navy_bar/bottom_navy_bar.dart';
-import '../screens/Pages/feed.dart';
+import 'package:holbegram/screens/Pages/feed.dart';
+import 'package:holbegram/screens/Pages/search.dart';
+import 'package:holbegram/screens/Pages/add_image.dart';
+import 'package:holbegram/screens/Pages/favorite.dart';
+import 'package:holbegram/screens/Pages/profile_screen.dart';
 
 class BottomNav extends StatefulWidget {
   const BottomNav({super.key});
@@ -10,8 +14,8 @@ class BottomNav extends StatefulWidget {
 }
 
 class _BottomNavState extends State<BottomNav> {
-  int currentIndex = 0;
-  PageController pageController = PageController();
+  int _currentIndex = 0;
+  final PageController pageController = PageController();
 
   @override
   Widget build(BuildContext context) {
@@ -20,18 +24,21 @@ class _BottomNavState extends State<BottomNav> {
         controller: pageController,
         children: const <Widget>[
           Feed(),
-          // Search(),
-          // AddImage(),
-          // Favorite(),
-          // Profile(),
+          Search(),
+          AddImage(),
+          Favorite(),
+          Profile(),
         ],
       ),
       bottomNavigationBar: BottomNavyBar(
-        selectedIndex: currentIndex,
+        selectedIndex: _currentIndex,
         showElevation: true,
         itemCornerRadius: 8,
         curve: Curves.easeInBack,
-        onItemSelected: (selectedIndex) => setState(() { currentIndex = selectedIndex; }),
+        onItemSelected: (selectedIndex) => setState(() {
+          _currentIndex = selectedIndex;
+          pageController.jumpToPage(_currentIndex);
+        }),
         items: <BottomNavyBarItem>[
           BottomNavyBarItem(
             icon: const Icon(Icons.home_outlined),
