@@ -60,14 +60,16 @@ class _SignupState extends State<Signup> {
                   controller: emailController,
                   isPassword: false,
                   hintText: 'Email',
-                  keyboardType: TextInputType.emailAddress
+                  keyboardType: TextInputType.emailAddress,
+                  filled: true,
                 ),
                 const SizedBox(height: 24),
                 TextFieldInput(
                   controller: fullNameController,
                   isPassword: false,
                   hintText: 'Full name',
-                  keyboardType: TextInputType.name
+                  keyboardType: TextInputType.name,
+                  filled: true,
                 ),
                 const SizedBox(height: 24),
                 TextFieldInput(
@@ -76,6 +78,7 @@ class _SignupState extends State<Signup> {
                   hintText: 'Password',
                   keyboardType: TextInputType.visiblePassword,
                   suffixIcon: passwordVisibleIcons,
+                  filled: true,
                 ),
                 const SizedBox(height: 24),
                 TextFieldInput(
@@ -84,6 +87,7 @@ class _SignupState extends State<Signup> {
                   hintText: 'Confirm Password',
                   keyboardType: TextInputType.visiblePassword,
                   suffixIcon: passwordVisibleIcons,
+                  filled: true,
                 ),
                 const SizedBox(height: 28),
                 SizedBox(

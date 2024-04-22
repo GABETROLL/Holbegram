@@ -6,15 +6,19 @@ class TextFieldInput extends StatelessWidget {
     required this.controller,
     required this.isPassword,
     required this.hintText,
-    this.suffixIcon,
     required this.keyboardType,
+    this.prefixIcon,
+    this.suffixIcon,
+    required this.filled,
   });
 
   final TextEditingController controller;
   final bool isPassword;
   final String hintText;
-  final Widget? suffixIcon;
   final TextInputType keyboardType;
+  final Widget? prefixIcon;
+  final Widget? suffixIcon;
+  final bool filled;
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +39,8 @@ class TextFieldInput extends StatelessWidget {
         enabledBorder: invisibleBorder,
         focusedBorder: invisibleBorder,
         // fillColor: const Color.fromARGB(0xFF, 0x80, 0x80, 0x80),
-        filled: true,
+        filled: filled,
+        prefixIcon: prefixIcon,
         suffixIcon: suffixIcon, // maybe null, but it'll just not show any suffixIcon if it is null.
         contentPadding: const EdgeInsets.all(8),
       ),

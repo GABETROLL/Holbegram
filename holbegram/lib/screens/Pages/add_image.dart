@@ -138,7 +138,8 @@ class _AddImageState extends State<AddImage> {
             controller: _captionController,
             isPassword: false,
             hintText: 'Write a caption...',
-            keyboardType: TextInputType.text
+            keyboardType: TextInputType.text,
+            filled: false,
           ),
           const SizedBox(height: 50),
           SizedBox(

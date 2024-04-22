@@ -59,7 +59,8 @@ class _LoginScreenState extends State<StatefulWidget> {
                     controller: emailController,
                     isPassword: false,
                     hintText: 'Email',
-                    keyboardType: TextInputType.emailAddress
+                    keyboardType: TextInputType.emailAddress,
+                    filled: true,
                   ),
                   const SizedBox(height: 24),
                   TextFieldInput(
@@ -75,6 +76,7 @@ class _LoginScreenState extends State<StatefulWidget> {
                       ),
                       onPressed: () => setState(() { _passwordVisible = !_passwordVisible; }),
                     ),
+                    filled: true,
                   ),
                   const SizedBox(height: 28),
                   SizedBox(
