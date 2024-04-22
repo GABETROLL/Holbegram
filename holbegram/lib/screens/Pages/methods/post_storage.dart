@@ -25,6 +25,8 @@ class PostStorage {
     final String postId = (const Uuid()).v1();
     final DateTime now = DateTime.now();
 
+    print('About to upload post with ID: $postId created at: $now');
+
     final Post postModel = Post(
       caption: caption,
       uid: uid,

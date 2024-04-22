@@ -48,18 +48,37 @@ class _AddImageState extends State<AddImage> {
   Future<String> uploadPost() async {
     if (_image == null) return 'No image to upload';
 
-    Users? user = await AuthMethods().getUserDetails();
+    final Users? user;
+    try {
+      user = await AuthMethods().getUserDetails();
+    } catch (error) {
+      return error.toString();
+    }
 
     if (user == null) return "You're not logged in!";
 
-    return await PostStorage().uploadPost(_captionController.text, user.uid, user.username, user.photoUrl, _image!);
+    final String uploadResult;
+
+    try {
+      uploadResult = await PostStorage().uploadPost(
+        _captionController.text,
+        user.uid,
+        user.username,
+        user.photoUrl,
+        _image!
+      );
+    } catch (error) {
+      return error.toString();
+    }
+
+    return uploadResult;
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Add Image', style: TextStyle(fontSize: 50)),
+        title: const Text('Add Image', style: TextStyle(fontWeight: FontWeight.w600, fontSize: 25)),
         actions: <Widget>[
           Builder(
             builder: (BuildContext context) => TextButton(
@@ -88,8 +107,9 @@ class _AddImageState extends State<AddImage> {
               child: const Text(
                 'Post',
                 style: TextStyle(
-                  fontSize: 50,
                   fontFamily: 'Billabong',
+                  fontSize: 40,
+                  fontWeight: FontWeight.bold,                  
                   color: Color.fromARGB(218, 226, 37, 24),
                 ),
               ),
@@ -99,39 +119,59 @@ class _AddImageState extends State<AddImage> {
       ),
       body: Column(
         children: <Widget>[
-          const Text('Add Image'),
-          const Text('Choose an image from your gallery or take one.'),
+          const Text(
+            'Add Image',
+            style: TextStyle(
+              fontWeight: FontWeight.w500,
+              fontSize: 22,
+            ),
+          ),
+          const Text(
+            'Choose an image from your gallery or take one.',
+            style: TextStyle(
+              fontWeight: FontWeight.w600,
+              fontSize: 14,
+            ),
+          ),
+          const SizedBox(height: 20),
           TextFieldInput(
             controller: _captionController,
             isPassword: false,
             hintText: 'Write a caption...',
             keyboardType: TextInputType.text
           ),
-          const SizedBox(height: 100),
-          (
-            _image != null
-            ? Image.memory(_image!)
-            : Image.asset('assets/images/add_image_icon.webp')
+          const SizedBox(height: 50),
+          SizedBox(
+            width: 200,
+            child: Column(
+              children: <Widget>[
+                (
+                  _image != null
+                  ? Image.memory(_image!)
+                  : Image.asset('assets/images/add_image_icon.webp')
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    IconButton(
+                      iconSize: 40,
+                      color: const Color.fromARGB(218, 226, 37, 24),
+                      onPressed: selectImageFromGallery,
+                      icon: const Icon(Icons.image_outlined),
+                    ),
+                    IconButton(
+                      iconSize: 40,
+                      color: const Color.fromARGB(218, 226, 37, 24),
+                      onPressed: selectImageFromCamera,
+                      icon: const Icon(Icons.camera_alt_outlined),
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              IconButton(
-                iconSize: 40,
-                color: const Color.fromARGB(218, 226, 37, 24),
-                onPressed: selectImageFromGallery,
-                icon: const Icon(Icons.image_outlined),
-              ),
-              IconButton(
-                iconSize: 40,
-                color: const Color.fromARGB(218, 226, 37, 24),
-                onPressed: selectImageFromCamera,
-                icon: const Icon(Icons.camera_alt_outlined),
-              ),
-            ],
-          ),
-        ]
-      )
+        ],
+      ),
     );
   }
 }
