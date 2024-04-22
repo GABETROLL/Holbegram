@@ -92,4 +92,26 @@ class AuthMethods {
       return null;
     }
   }
+
+  /// Adds `postId` to the current user's `saved` `List`, in the Cloud Firestore.
+  /// (This is where the user's "favorites" will be stored in).
+  /// Returns 'Ok' if everything went as expected, or the error's code or string representation.
+  Future<String> savePostById(String postId) async {
+    final Users? user = await getUserDetails();
+    if (user == null) {
+      return 'No user found';
+    }
+    user.saved.add(postId);
+    
+    try {
+      await _firestore.collection('users').doc(user.uid)
+        .set(user.toJson());
+    } on FirebaseAuthException catch (error) {
+      return error.code;
+    } catch (error) {
+      return error.toString();
+    }
+
+    return 'Ok';
+  }
 }
