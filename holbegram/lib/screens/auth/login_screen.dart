@@ -129,7 +129,7 @@ class _LoginScreenState extends State<StatefulWidget> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
-                        const Text("Don't have an account"),
+                        const Text("Don't have an account?"),
                         TextButton(
                           onPressed: () => Navigator.push(
                             context,

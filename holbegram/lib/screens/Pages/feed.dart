@@ -9,7 +9,7 @@ class Feed extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         leading: Image.asset('assets/images/logo.webp'),
-        title: const Text('Holbegram', style: TextStyle(fontFamily: 'Billabong', fontSize: 50)),
+        title: const Text('Holbegram', style: TextStyle(fontFamily: 'Billabong', fontSize: 40)),
         actions: <Widget>[
           IconButton(
             icon: const Icon(Icons.add),
