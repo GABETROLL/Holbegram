@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:holbegram/methods/auth_methods.dart';
 // firebase stuff
 import 'package:holbegram/providers/user_provider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -94,26 +95,39 @@ class _PostsState extends State<Posts> {
                         child: Image.network(postModel.postUrl),
                         // fit: cover (how?)
                       ),
-                      Row(
-                        children: <Widget>[
-                          IconButton(
-                            onPressed: () { },
-                            icon: const Icon(Icons.favorite_outline),
-                          ),
-                          IconButton(
-                            onPressed: ( ) { },
-                            icon: const Icon(Icons.messenger_outline),
-                          ),
-                          IconButton(
-                            onPressed: ( ) { },
-                            icon: const Icon(Icons.send),
-                          ),
-                          const Spacer(),
-                          IconButton(
-                            onPressed: ( ) { },
-                            icon: const Icon(Icons.bookmark_outline),
-                          ),
-                        ],
+                      Builder(
+                        builder: (BuildContext context) {
+                          return Row(
+                            children: <Widget>[
+                              IconButton(
+                                onPressed: () { },
+                                icon: const Icon(Icons.favorite_outline),
+                              ),
+                              IconButton(
+                                onPressed: ( ) { },
+                                icon: const Icon(Icons.messenger_outline),
+                              ),
+                              IconButton(
+                                onPressed: ( ) { },
+                                icon: const Icon(Icons.send),
+                              ),
+                              const Spacer(),
+                              IconButton(
+                                onPressed: ( ) {
+                                  AuthMethods().savePostById(postModel.postId)
+                                    .then((result) {
+                                      if (result == 'Ok') {
+                                        ScaffoldMessenger.of(context).showSnackBar(
+                                          const SnackBar(content: Text(''))
+                                        );
+                                      }
+                                    });
+                                },
+                                icon: const Icon(Icons.bookmark_outline),
+                              ),
+                            ],
+                          );
+                        },
                       ),
                       // LIKES
                       Text('${postModel.likes.length} Liked'),
